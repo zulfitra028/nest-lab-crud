@@ -273,23 +273,6 @@ Your database is now in sync with your schema.
 Basis data Anda sekarang telah disinkronkan dengan skema Anda. Anda telah berhasil membuat tabel-tabel yang sesuai dengan model `Article` yang telah Anda tentukan dalam skema Prisma Anda.
 
 Juga, perintah ini akan menghasilkan Prisma Client yang sesuai dengan skema terbaru Anda. Anda dapat menggunakannya untuk mengirim kueri ke basis data dengan cara yang aman tipe. Prisma Client ini akan ditempatkan dalam direktori `node_modules/@prisma/client` dan siap digunakan dalam proyek Anda.
-
-Jika berhasil diselesaikan, Anda akan melihat pesan seperti ini:
-
-```
-The following migration(s) have been created and applied from new schema changes:
-
-migrations/
-  └─ 20220528101323_init/
-    └─ migration.sql
-
-Your database is now in sync with your schema.
-...
-✔ Generated Prisma Client (3.14.0 | library) to ./node_modules/@prisma/client in 31ms
-```
-
-Anda dapat memeriksa berkas migrasi yang dihasilkan untuk mendapatkan gambaran tentang apa yang Prisma Migrate lakukan di belakang layar. Berikut adalah isi dari berkas migrasi tersebut (dalam kasus ini, `migration.sql`):
-
 Anda dapat memeriksa berkas migrasi yang dihasilkan untuk mendapatkan gambaran tentang apa yang Prisma Migrate lakukan di belakang layar. Berikut adalah isi dari berkas migrasi tersebut (dalam kasus ini, `migration.sql`):
 
 ```sql
