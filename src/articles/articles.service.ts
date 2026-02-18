@@ -1,0 +1,58 @@
+import { Injectable } from '@nestjs/common';
+import { CreateArticleDto } from './dto/create-article.dto';
+import { UpdateArticleDto } from './dto/update-article.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
+
+@Injectable()
+export class ArticlesService {
+  constructor(private prisma: PrismaService) {}
+
+  create(createArticleDto: CreateArticleDto) {
+    return this.prisma.article.create({
+      data: createArticleDto,
+    });
+  }
+
+  // Menambahkan include author agar nama penulis muncul di daftar artikel
+  findAll() {
+    return this.prisma.article.findMany({
+      where: { published: true },
+      include: {
+        author: true, // ← Tambahkan ini
+      },
+    });
+  }
+
+  // Menambahkan include author untuk artikel yang masih draft
+  findDrafts() {
+    return this.prisma.article.findMany({
+      where: { published: false },
+      include: {
+        author: true, // ← Tambahkan ini
+      },
+    });
+  }
+
+  // Menambahkan include author untuk detail satu artikel
+  findOne(id: number) {
+    return this.prisma.article.findUnique({
+      where: { id },
+      include: {
+        author: true, // ← Tambahkan ini
+      },
+    });
+  }
+
+  update(id: number, updateArticleDto: UpdateArticleDto) {
+    return this.prisma.article.update({
+      where: { id },
+      data: updateArticleDto,
+    });
+  }
+
+  remove(id: number) {
+    return this.prisma.article.delete({
+      where: { id },
+    });
+  }
+}

@@ -1,0 +1,43 @@
+// 1. Bagian Generator (Wajib ada)
+generator client {
+  provider = "prisma-client-js"
+}
+
+// 2. Bagian Datasource (Ini yang tadi hilang)
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 3. Model Article
+model Article {
+  id          Int      @id @default(autoincrement())
+  title       String   @unique
+  description String?
+  body        String
+  published   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relasi ke User
+  author      User?    @relation(fields: [authorId], references: [id])
+  authorId    Int?     
+}
+
+// 4. Model User
+model User {
+  id        Int       @id @default(autoincrement())
+  name      String?
+  email     String    @unique
+  password  String
+  role      Role      @default(USER) // ← Tambahkan ini agar sinkron dengan seed.ts
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  articles  Article[] 
+}
+
+// 5. Tambahkan Enum untuk Role
+enum Role {
+  USER
+  ADMIN
+}
